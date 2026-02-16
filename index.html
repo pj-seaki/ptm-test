@@ -102,11 +102,8 @@
 
         .footer-icon { width: 20px; height: auto; filter: drop-shadow(0 0 5px rgba(88, 166, 255, 0.5)); }
 
-        /* --- 按鈕通用 --- */
-        .primary-btn {
-            background: #21262d !important;
-            color: #ffffff !important;
-            border: 2px solid rgba(255, 255, 255, 0.8) !important;
+        /* --- 按鈕通用屬性 --- */
+        .primary-btn, #end-btn, #next-btn {
             padding: 15px;
             font-size: 1.1rem;
             border-radius: 10px;
@@ -115,14 +112,22 @@
             display: block;
             width: 100%;
             box-sizing: border-box;
-            margin-top: 20px;
             letter-spacing: 2px;
             text-transform: uppercase;
+            font-weight: normal !important;
+        }
+
+        /* --- 首頁按鈕樣式 --- */
+        .primary-btn {
+            background: #21262d !important;
+            color: #ffffff !important;
+            border: 2px solid rgba(255, 255, 255, 0.8) !important;
+            margin-top: 20px;
         }
 
         #settings-btn { border-style: dashed !important; opacity: 0.9; }
 
-        #start-btn:hover, #settings-btn:hover {
+        .primary-btn:hover {
             background: rgba(88, 166, 255, 0.15) !important;
             border: 2px solid #ffffff !important;
             border-style: solid !important;
@@ -132,15 +137,24 @@
             opacity: 1;
         }
 
-        /* --- 遊戲內按鈕 --- */
+        /* --- 遊戲內控制按鈕：結束 & 下一題 --- */
+        #end-btn, #next-btn {
+            border: 2px solid #ffffff !important;
+            margin-top: 20px;
+        }
+
         #end-btn {
             background: rgba(255, 138, 0, 0.05) !important;
             color: #ffffff !important;
-            border: 2px solid #ffffff !important;
             text-shadow: 0 0 5px rgba(255, 138, 0, 0.8), 0 0 10px rgba(255, 138, 0, 0.5) !important;
             box-shadow: 0 0 8px rgba(255, 138, 0, 0.4), inset 0 0 4px rgba(255, 138, 0, 0.3) !important;
-            transition: all 0.3s ease-in-out !important;
-            padding: 15px; width: 100%; border-radius: 10px; cursor: pointer;
+        }
+
+        #next-btn {
+            background: rgba(0, 255, 127, 0.05) !important;
+            color: #ffffff !important;
+            text-shadow: 0 0 5px rgba(0, 255, 127, 0.8), 0 0 10px rgba(0, 255, 127, 0.5) !important;
+            box-shadow: 0 0 8px rgba(0, 255, 127, 0.4), inset 0 0 4px rgba(0, 255, 127, 0.3) !important;
         }
 
         #end-btn:hover:not(:disabled) {
@@ -150,15 +164,6 @@
             text-shadow: 0 0 8px rgba(255, 138, 0, 1), 0 0 15px rgba(255, 138, 0, 0.8) !important;
         }
 
-        #next-btn {
-            background: rgba(0, 255, 127, 0.05) !important;
-            color: #ffffff !important;
-            border: 2px solid #ffffff !important;
-            text-shadow: 0 0 5px rgba(0, 255, 127, 0.8), 0 0 10px rgba(0, 255, 127, 0.5) !important;
-            box-shadow: 0 0 8px rgba(0, 255, 127, 0.4), inset 0 0 4px rgba(0, 255, 127, 0.3) !important;
-            transition: all 0.3s ease-in-out !important;
-        }
-
         #next-btn:hover:not(:disabled) {
             background: rgba(0, 255, 127, 0.15) !important;
             transform: translateY(-3px) !important;
@@ -166,9 +171,9 @@
             text-shadow: 0 0 8px rgba(0, 255, 127, 1), 0 0 15px rgba(0, 255, 127, 0.8) !important;
         }
 
-        #start-btn:active, #settings-btn:active, #end-btn:active, #next-btn:active { transform: translateY(0) !important; }
+        .primary-btn:active, #end-btn:active, #next-btn:active { transform: translateY(0) !important; }
 
-        /* --- 遊戲組件 --- */
+        /* --- 遊戲畫面組件 --- */
         #back-to-home, #game-settings-btn { position: absolute; top: 15px; font-size: 1.5rem; cursor: pointer; z-index: 20; transition: transform 0.2s; user-select: none; }
         #back-to-home { left: 15px; } #game-settings-btn { right: 15px; }
         #back-to-home:hover { transform: scale(1.2); }
@@ -235,7 +240,7 @@
         </div>
         <div class="controls">
             <button id="end-btn">結束控時</button>
-            <button id="next-btn" class="primary-btn" style="display:none;">下一題</button>
+            <button id="next-btn" style="display:none;">下一題</button>
         </div>
         <div id="best-solution-container">
             <div id="best-solution-box">
@@ -418,5 +423,4 @@ document.getElementById('next-btn').onclick = () => {
 </script>
 
 </body>
-
 </html>
