@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artale困難拉圖斯控時練習器</title>
+    <title>Artale 困難拉圖斯控時練習器</title>
     <style>
         :root {
             --card-bg: rgba(22, 27, 34, 0.98);
@@ -51,7 +51,7 @@
             flex-direction: column;
         }
 
-        /* --- 轉場動畫 --- */
+        /* --- 動畫 --- */
         .fade-out { animation: fadeOutEffect 0.5s forwards ease-in-out !important; pointer-events: none; }
         .fade-in { animation: fadeInEffect 0.5s forwards ease-in-out !important; }
         @keyframes fadeOutEffect { from { opacity: 1; } to { opacity: 0; } }
@@ -81,23 +81,40 @@
         .home-image {
             width: 100%;
             max-width: 360px;
-            height: auto; 
+            height: auto;
             border-radius: 10px;
             filter: drop-shadow(0 0 20px rgba(88, 166, 255, 0.3));
         }
 
-        /* --- 按鈕 --- */
+        .footer-credit {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #ffffff;
+            opacity: 0.8;
+            letter-spacing: 1.5px;
+            font-family: "Courier New", monospace;
+            text-shadow: 0 0 5px rgba(88, 166, 255, 0.8), 0 0 10px rgba(88, 166, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .footer-icon { width: 20px; height: auto; filter: drop-shadow(0 0 5px rgba(88, 166, 255, 0.5)); }
+
+        /* --- 按鈕通用 --- */
         .primary-btn {
             background: #21262d !important;
             color: #ffffff !important;
-            border: 1px solid #ffffff !important;
+            border: 2px solid rgba(255, 255, 255, 0.8) !important;
             padding: 15px;
             font-size: 1.1rem;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s ease-in-out;
+            transition: all 0.3s ease-in-out !important;
             display: block;
             width: 100%;
+            box-sizing: border-box;
             margin-top: 20px;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -106,15 +123,16 @@
         #settings-btn { border-style: dashed !important; opacity: 0.9; }
 
         #start-btn:hover, #settings-btn:hover {
-            background: rgba(35, 117, 192, 0.85) !important;
+            background: rgba(88, 166, 255, 0.15) !important;
             border: 2px solid #ffffff !important;
             border-style: solid !important;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6); 
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-            transform: translateY(-2px);
+            transform: translateY(-3px) !important;
+            box-shadow: 0 0 15px rgba(88, 166, 255, 0.8), 0 0 30px rgba(88, 166, 255, 0.4), inset 0 0 10px rgba(88, 166, 255, 0.4) !important;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 1), 0 0 15px rgba(88, 166, 255, 0.8) !important;
             opacity: 1;
         }
 
+        /* --- 遊戲內按鈕 --- */
         #end-btn {
             background: rgba(255, 138, 0, 0.05) !important;
             color: #ffffff !important;
@@ -122,10 +140,11 @@
             text-shadow: 0 0 5px rgba(255, 138, 0, 0.8), 0 0 10px rgba(255, 138, 0, 0.5) !important;
             box-shadow: 0 0 8px rgba(255, 138, 0, 0.4), inset 0 0 4px rgba(255, 138, 0, 0.3) !important;
             transition: all 0.3s ease-in-out !important;
+            padding: 15px; width: 100%; border-radius: 10px; cursor: pointer;
         }
 
         #end-btn:hover:not(:disabled) {
-            background: rgba(255, 138, 0, 0.15) !important; 
+            background: rgba(255, 138, 0, 0.15) !important;
             transform: translateY(-3px) !important;
             box-shadow: 0 0 15px rgba(255, 138, 0, 0.8), 0 0 30px rgba(255, 138, 0, 0.4), inset 0 0 10px rgba(255, 138, 0, 0.4) !important;
             text-shadow: 0 0 8px rgba(255, 138, 0, 1), 0 0 15px rgba(255, 138, 0, 0.8) !important;
@@ -141,94 +160,45 @@
         }
 
         #next-btn:hover:not(:disabled) {
-            background: rgba(0, 255, 127, 0.15) !important; 
+            background: rgba(0, 255, 127, 0.15) !important;
             transform: translateY(-3px) !important;
             box-shadow: 0 0 15px rgba(0, 255, 127, 0.8), 0 0 30px rgba(0, 255, 127, 0.4), inset 0 0 10px rgba(0, 255, 127, 0.4) !important;
             text-shadow: 0 0 8px rgba(0, 255, 127, 1), 0 0 15px rgba(0, 255, 127, 0.8) !important;
         }
 
-        .secondary-btn {
-            background: transparent !important;
-            border: 1px solid var(--accent-blue) !important;
-            color: var(--accent-blue) !important;
-            padding: 15px;
-            font-size: 1.1rem;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-        }
+        #start-btn:active, #settings-btn:active, #end-btn:active, #next-btn:active { transform: translateY(0) !important; }
 
         /* --- 遊戲組件 --- */
-        #back-to-home { position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; z-index: 20; transition: transform 0.2s; user-select: none; }
+        #back-to-home, #game-settings-btn { position: absolute; top: 15px; font-size: 1.5rem; cursor: pointer; z-index: 20; transition: transform 0.2s; user-select: none; }
+        #back-to-home { left: 15px; } #game-settings-btn { right: 15px; }
         #back-to-home:hover { transform: scale(1.2); }
-        #game-settings-btn { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer; z-index: 20; transition: transform 0.2s; user-select: none; }
         #game-settings-btn:hover { transform: scale(1.2) rotate(45deg); }
 
-        #result-area { margin-top: 20px; margin-bottom: 10px; height: 60px; display: flex; align-items: center; justify-content: center; }
+        #result-area { margin: 20px 0 10px 0; height: 60px; display: flex; align-items: center; justify-content: center; }
         #message { margin: 0; font-size: 1.3rem; font-weight: bold; }
 
-        .timer-area {
-            width: 100%; max-width: 180px; aspect-ratio: 200 / 60;
-            background: url('https://images.plurk.com/3aMmUYdcZdgMBClnxf4Qir.png') center / 100% 100% no-repeat;
-            margin: 0 auto 25px auto; position: relative;
-        }
-
-        #static-zero, #countdown-timer {
-            font-family: "Courier New", monospace; font-size: 2.3rem; font-weight: bold; color: #fbf9c2;
-            letter-spacing: -2px; line-height: 1; position: absolute; top: 53%; transform: translateY(-50%);
-            width: 35%; text-align: center; text-shadow: 0 0 5px rgba(251, 249, 194, 0.8), 0 0 10px rgba(251, 249, 194, 0.5);
-        }
-        #static-zero { left: 28%; }
-        #countdown-timer { left: 60%; }
+        .timer-area { width: 100%; max-width: 180px; aspect-ratio: 200/60; background: url('https://images.plurk.com/3aMmUYdcZdgMBClnxf4Qir.png') center/100% 100% no-repeat; margin: 0 auto 25px auto; position: relative; }
+        #static-zero, #countdown-timer { font-family: "Courier New", monospace; font-size: 2.3rem; font-weight: bold; color: #fbf9c2; letter-spacing: -2px; position: absolute; top: 53%; transform: translateY(-50%); width: 35%; text-align: center; text-shadow: 0 0 5px rgba(251, 249, 194, 0.8), 0 0 10px rgba(251, 249, 194, 0.5); }
+        #static-zero { left: 28%; } #countdown-timer { left: 60%; }
 
         .button-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
+        #button-container button { padding: 8px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; background: rgba(48, 54, 61, 0.4); border: 2px solid rgba(255, 255, 255, 0.5) !important; border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        #button-container button:hover:not(:disabled) { background: rgba(65, 71, 79, 0.8); transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.6) !important; box-shadow: 0 0 12px rgba(255, 255, 255, 0.4); }
+        #button-container button:disabled { opacity: 0.3; filter: grayscale(1); cursor: default; }
 
-        #button-container button {
-            padding: 8px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
-            background: rgba(48, 54, 61, 0.4); border: 2px solid rgba(255, 255, 255, 0.5) !important; 
-            border-radius: 10px; cursor: pointer; transition: all 0.3s ease-in-out;
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.08), 0 0 2px rgba(255, 255, 255, 0.05), inset 0 0 4px rgba(255, 255, 255, 0.05) !important;
-        }
-
-        #button-container button:hover:not(:disabled) {
-            background: rgba(65, 71, 79, 0.8); transform: translateY(-2px);
-            border-color: rgba(255, 255, 255, 0.6) !important;
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 0 4px rgba(255, 255, 255, 0.2), inset 0 0 6px rgba(255, 255, 255, 0.1) !important;
-        }
-
-        #button-container button:disabled { background: rgba(13, 17, 23, 0.6); opacity: 0.3; filter: grayscale(1); border-color: rgba(255, 255, 255, 0.05) !important; box-shadow: none !important; }
-
-        .clock-display-area {
-            width: 100%; aspect-ratio: 16 / 9;
-            background: url('https://images.plurk.com/1bTdt9DiaQ0N4WQJPNH9XA.png') center / 100% 100% no-repeat;
-            position: relative; margin-bottom: 20px; filter: brightness(0.9);
-        }
-
+        .clock-display-area { width: 100%; aspect-ratio: 16/9; background: url('https://images.plurk.com/1bTdt9DiaQ0N4WQJPNH9XA.png') center/100% 100% no-repeat; position: relative; margin-bottom: 20px; filter: brightness(0.9); }
         .time-container { position: absolute; top: 48.5%; left: 49.5%; transform: translate(-50%, -50%); width: 100%; }
-        #current-time {
-            font-family: "Courier New", monospace; font-size: 0.85rem; font-weight: bold; color: var(--clock-blue);
-            letter-spacing: -1px; line-height: 1; text-shadow: 0 0 5px rgba(215, 237, 233, 0.9), 0 0 10px rgba(88, 166, 255, 0.6);
-        }
+        #current-time { font-family: "Courier New", monospace; font-size: 0.85rem; font-weight: bold; color: var(--clock-blue); text-shadow: 0 0 5px rgba(215, 237, 233, 0.9), 0 0 10px rgba(88, 166, 255, 0.6); }
 
-        #result-overlay {
-            display: none; position: absolute; inset: 0; z-index: 10;
-            background: center / contain no-repeat; pointer-events: none; animation: resultAppear 1.2s ease-out forwards;
-        }
+        #result-overlay { display: none; position: absolute; inset: 0; z-index: 10; background: center/contain no-repeat; pointer-events: none; animation: resultAppear 1.2s ease-out forwards; }
         @keyframes resultAppear { from { opacity: 0; } to { opacity: 1; } }
 
         #best-solution-container { display: none; opacity: 0; }
-        #best-solution-box {
-            color: var(--clock-blue); background: rgba(88, 166, 255, 0.03); padding: 20px 20px 0px 20px;
-            border-radius: 4px; text-align: left; margin-top: 25px; border: 1px solid rgba(88, 166, 255, 0.2);
-        }
-        .result-row { display: flex; margin-bottom: 12px; border-bottom: 1px solid rgba(88, 166, 255, 0.08); padding-bottom: 10px; align-items: flex-start; }
-        .result-row:last-child { border-bottom: none; }
-        .result-row strong { min-width: 75px; font-size: 0.8rem; color: var(--clock-blue); opacity: 0.75; }
+        #best-solution-box { color: var(--clock-blue); background: rgba(88, 166, 255, 0.03); padding: 20px 20px 0px 20px; border-radius: 4px; text-align: left; margin-top: 25px; border: 1px solid rgba(88, 166, 255, 0.2); }
+        .result-row { display: flex; margin-bottom: 12px; border-bottom: 1px solid rgba(88, 166, 255, 0.08); padding-bottom: 10px; }
+        .result-row strong { min-width: 75px; font-size: 0.8rem; opacity: 0.75; }
         #res-initial, #res-target, #res-options, #res-steps { font-family: "Courier New", monospace; font-size: 0.8rem; font-weight: bold; }
         #res-options, #res-steps { color: var(--primary-gold); }
-        
-        #button-container button img { width: 100%; height: auto; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -239,35 +209,34 @@
         <img src="https://images.plurk.com/5muV8QHj5HfJbel1mtXAUS.png" alt="Papulatus" class="home-image">
         <button id="start-btn" class="primary-btn">開始遊戲</button>
         <button id="settings-btn" class="primary-btn">選項設置</button>
+        <img src="https://images.plurk.com/6FNrTJuuuvcZvjshnAMq6U.png" alt="Decoration" style="width: 100%; max-width: 360px; height: auto; margin-top: 10px;">
+        <div class="footer-credit">
+            <span>Created by 葛葛z</span>
+            <img src="https://images.plurk.com/5P62hQDFFdPW8pjHXQPKkH.png" alt="icon" class="footer-icon">
+        </div>
     </div>
 
     <div id="game-screen" style="display: none;">
         <div id="back-to-home">↩️</div>
         <div id="game-settings-btn">⚙️</div>
-
         <div id="result-area">
             <p id="message">請點選按鈕或結束控時</p>
         </div>
-
         <div class="timer-area">
             <span id="static-zero">00</span>
             <span id="countdown-timer">30</span>
         </div>
-
         <div class="button-grid" id="button-container"></div>
-
         <div class="clock-display-area">
             <div class="time-container">
                 <span id="current-time">00:00</span>
             </div>
             <div id="result-overlay"></div>
         </div>
-
         <div class="controls">
-            <button id="end-btn" class="secondary-btn">結束控時</button>
+            <button id="end-btn">結束控時</button>
             <button id="next-btn" class="primary-btn" style="display:none;">下一題</button>
         </div>
-
         <div id="best-solution-container">
             <div id="best-solution-box">
                 <div class="result-row"><strong>初始時間：</strong><span id="res-initial"></span></div>
@@ -280,180 +249,172 @@
 </div>
 
 <script>
-    const optionsPool = [
-        { label: "10分", value: 10, img: "https://images.plurk.com/7pt8wSx3Xy07rygfZInZCr.png" },
-        { label: "30分", value: 30, img: "https://images.plurk.com/59uCWHf3M1RoPc1UXJgfnS.png" },
-        { label: "50分", value: 50, img: "https://images.plurk.com/1FaL0XeX7XAm0GXqpZnBUp.png" },
-        { label: "2時", value: 120, img: "https://images.plurk.com/1PQ11IRH876A1rqkCwqOcX.png" },
-        { label: "4時", value: 240, img: "https://images.plurk.com/3U1ODgTPfoziea90SFp3g7.png" },
-        { label: "9時", value: 540, img: "https://images.plurk.com/2KWgNVfYEGu2AJWt2cej3v.png" },
-        { label: "x2", value: "multiply", img: "https://images.plurk.com/3U2dQZsFpUMn00iElEUJb0.png" }
-    ];
+const optionsPool = [
+    { label: "10分", value: 10, img: "https://images.plurk.com/7pt8wSx3Xy07rygfZInZCr.png" },
+    { label: "30分", value: 30, img: "https://images.plurk.com/59uCWHf3M1RoPc1UXJgfnS.png" },
+    { label: "50分", value: 50, img: "https://images.plurk.com/1FaL0XeX7XAm0GXqpZnBUp.png" },
+    { label: "2時", value: 120, img: "https://images.plurk.com/1PQ11IRH876A1rqkCwqOcX.png" },
+    { label: "4時", value: 240, img: "https://images.plurk.com/3U1ODgTPfoziea90SFp3g7.png" },
+    { label: "9時", value: 540, img: "https://images.plurk.com/2KWgNVfYEGu2AJWt2cej3v.png" },
+    { label: "x2", value: "multiply", img: "https://images.plurk.com/3U2dQZsFpUMn00iElEUJb0.png" }
+];
 
-    const RESULT_IMAGES = {
-        PERFECT: "https://images.plurk.com/5zFNiX40JIIMuE0PtRb480.gif",
-        FAILED: "https://images.plurk.com/53KHwJqN2UmP7FetY8LwjV.gif",
-        OVER: "https://images.plurk.com/5Kg5s6ebU2vHDTBJ2ReXFn.gif",
-        TIMEOUT: "https://images.plurk.com/5Kg5s6ebU2vHDTBJ2ReXFn.gif"
-    };
+const RESULT_IMAGES = {
+    PERFECT: "https://images.plurk.com/5zFNiX40JIIMuE0PtRb480.gif",
+    FAILED: "https://images.plurk.com/53KHwJqN2UmP7FetY8LwjV.gif",
+    OVER: "https://images.plurk.com/5Kg5s6ebU2vHDTBJ2ReXFn.gif",
+    TIMEOUT: "https://images.plurk.com/5Kg5s6ebU2vHDTBJ2ReXFn.gif"
+};
 
-    let currentMinutes = 0, initialMinutes = 0, currentButtons = [], timerInterval, timeLeft = 30;
-    const LIMIT = 720;
+let currentMinutes = 0, initialMinutes = 0, currentButtons = [], timerInterval, timeLeft = 30;
+const LIMIT = 720;
 
-    // --- 畫面切換邏輯 ---
-    document.getElementById('start-btn').onclick = () => {
-        const home = document.getElementById('home-screen');
-        const game = document.getElementById('game-screen');
-        home.classList.add('fade-out');
-        setTimeout(() => {
-            home.style.display = 'none';
-            home.classList.remove('fade-out');
-            game.style.display = 'block';
-            game.classList.add('fade-in');
-            initGame();
-            setTimeout(() => game.classList.remove('fade-in'), 500);
-        }, 500);
-    };
+document.getElementById('start-btn').onclick = () => {
+    const home = document.getElementById('home-screen');
+    const game = document.getElementById('game-screen');
+    home.classList.add('fade-out');
+    setTimeout(() => {
+        home.style.display = 'none';
+        home.classList.remove('fade-out');
+        game.style.display = 'block';
+        game.classList.add('fade-in');
+        initGame();
+        setTimeout(() => game.classList.remove('fade-in'), 500);
+    }, 500);
+};
 
-    document.getElementById('back-to-home').onclick = () => {
-        const home = document.getElementById('home-screen');
-        const game = document.getElementById('game-screen');
-        clearInterval(timerInterval);
-        game.classList.add('fade-out');
-        setTimeout(() => {
-            game.style.display = 'none';
-            game.classList.remove('fade-out');
-            home.style.display = 'flex';
-            home.classList.add('fade-in');
-            setTimeout(() => home.classList.remove('fade-in'), 500);
-        }, 500);
-    };
+document.getElementById('back-to-home').onclick = () => {
+    const home = document.getElementById('home-screen');
+    const game = document.getElementById('game-screen');
+    clearInterval(timerInterval);
+    game.classList.add('fade-out');
+    setTimeout(() => {
+        game.style.display = 'none';
+        game.classList.remove('fade-out');
+        home.style.display = 'flex';
+        home.classList.add('fade-in');
+        setTimeout(() => home.classList.remove('fade-in'), 500);
+    }, 500);
+};
 
-    function initGame() {
-        const bestContainer = document.getElementById('best-solution-container');
-        bestContainer.style.display = "none";
-        bestContainer.style.opacity = "0";
-        bestContainer.classList.remove('fade-in', 'fade-out');
+function initGame() {
+    const bestContainer = document.getElementById('best-solution-container');
+    bestContainer.style.display = "none";
+    bestContainer.style.opacity = "0";
+    bestContainer.classList.remove('fade-in', 'fade-out');
 
-        const randomStep = Math.floor(Math.random() * 67);
-        initialMinutes = (randomStep * 10) + 30;
-        currentMinutes = initialMinutes;
-        currentButtons = [];
-        for (let i = 0; i < 4; i++) {
-            currentButtons.push({ ...optionsPool[Math.floor(Math.random() * optionsPool.length)] });
+    const randomStep = Math.floor(Math.random() * 67);
+    initialMinutes = (randomStep * 10) + 30;
+    currentMinutes = initialMinutes;
+    currentButtons = [];
+    for (let i = 0; i < 4; i++) {
+        currentButtons.push({ ...optionsPool[Math.floor(Math.random() * optionsPool.length)] });
+    }
+    
+    const overlay = document.getElementById('result-overlay');
+    overlay.style.display = "none";
+    overlay.style.backgroundImage = "none";
+    
+    startTimer();
+    updateTimeDisplay();
+    renderButtons();
+    
+    const msg = document.getElementById('message');
+    msg.innerText = "請點選按鈕或結束控時";
+    msg.style.color = "#c9d1d9";
+    
+    document.getElementById('next-btn').style.display = "none";
+    document.getElementById('end-btn').style.display = "block";
+}
+
+function startTimer() {
+    clearInterval(timerInterval);
+    timeLeft = 30;
+    const timerDisplay = document.getElementById('countdown-timer');
+    timerDisplay.innerText = "30";
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.innerText = timeLeft.toString().padStart(2, '0');
+        if (timeLeft <= 0) { clearInterval(timerInterval); finishGame(true); }
+    }, 1000);
+}
+
+function renderButtons() {
+    const container = document.getElementById('button-container');
+    container.innerHTML = '';
+    currentButtons.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.innerHTML = `<img src="${opt.img}" alt="${opt.label}" style="width:100%">`;
+        btn.onclick = () => {
+            if (opt.value === "multiply") currentMinutes *= 2;
+            else currentMinutes += opt.value;
+            btn.disabled = true;
+            updateTimeDisplay();
+            if (currentMinutes >= LIMIT) finishGame();
+        };
+        container.appendChild(btn);
+    });
+}
+
+function updateTimeDisplay() {
+    const h = Math.floor(currentMinutes / 60), m = currentMinutes % 60;
+    document.getElementById('current-time').innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+}
+
+function solveBest() {
+    let bestVal = -1, bestCombo = [];
+    function find(cur, rem, path) {
+        if (cur < LIMIT && cur > bestVal) { bestVal = cur; bestCombo = [...path]; }
+        for (let i = 0; i < rem.length; i++) {
+            let btn = rem[i];
+            find(btn.value === "multiply" ? cur * 2 : cur + btn.value, rem.filter((_, idx) => idx !== i), [...path, btn.label]);
         }
-        
-        const overlay = document.getElementById('result-overlay');
-        overlay.style.display = "none";
-        overlay.style.backgroundImage = "none";
-        
-        startTimer();
-        updateTimeDisplay();
-        renderButtons();
-        
-        const msg = document.getElementById('message');
-        msg.innerText = "請點選按鈕或結束控時";
-        msg.style.color = "#c9d1d9";
-        
-        document.getElementById('next-btn').style.display = "none";
-        document.getElementById('end-btn').style.display = "block";
     }
+    find(initialMinutes, currentButtons, []);
+    return { val: bestVal, combo: bestCombo };
+}
 
-    function startTimer() {
-        clearInterval(timerInterval);
-        timeLeft = 30;
-        const timerDisplay = document.getElementById('countdown-timer');
-        timerDisplay.innerText = "30";
-        timerInterval = setInterval(() => {
-            timeLeft--;
-            timerDisplay.innerText = timeLeft.toString().padStart(2, '0');
-            if (timeLeft <= 0) { 
-                clearInterval(timerInterval); 
-                finishGame(true); 
-            }
-        }, 1000);
+function finishGame(isTimeout = false) {
+    clearInterval(timerInterval);
+    const best = solveBest(), msg = document.getElementById('message'), overlay = document.getElementById('result-overlay');
+    
+    document.getElementById('res-initial').innerText = `${Math.floor(initialMinutes/60).toString().padStart(2,'0')}:${(initialMinutes%60).toString().padStart(2,'0')}`;
+    document.getElementById('res-options').innerText = currentButtons.map(b => b.label).join('　');
+    document.getElementById('res-target').innerText = `${Math.floor(best.val/60).toString().padStart(2,'0')}:${(best.val%60).toString().padStart(2,'0')}`;
+    document.getElementById('res-steps').innerText = best.combo.join('➡️') || '不需控時';
+
+    const bestContainer = document.getElementById('best-solution-container');
+    bestContainer.style.display = "block";
+    void bestContainer.offsetWidth;
+    bestContainer.classList.add('fade-in');
+
+    overlay.style.display = "block";
+    if (isTimeout) {
+        msg.innerText = "💀 時間到 💀"; msg.style.color = "#ff4757";
+        overlay.style.backgroundImage = `url('${RESULT_IMAGES.TIMEOUT}')`;
+    } else if (currentMinutes < LIMIT && currentMinutes >= best.val) {
+        msg.innerText = "✨ 完美控時 ✨"; msg.style.color = "#2ecc71";
+        overlay.style.backgroundImage = `url('${RESULT_IMAGES.PERFECT}')`;
+    } else if (currentMinutes >= LIMIT) {
+        msg.innerText = "💀 超過12:00 💀"; msg.style.color = "#ff4757";
+        overlay.style.backgroundImage = `url('${RESULT_IMAGES.OVER}')`;
+    } else {
+        msg.innerText = "⚠️ 未達最佳解 ⚠️"; msg.style.color = "#f1c40f";
+        overlay.style.backgroundImage = `url('${RESULT_IMAGES.FAILED}')`;
     }
+    
+    document.querySelectorAll('#button-container button').forEach(b => b.disabled = true);
+    document.getElementById('end-btn').style.display = "none";
+    document.getElementById('next-btn').style.display = "block";
+}
 
-    function renderButtons() {
-        const container = document.getElementById('button-container');
-        container.innerHTML = '';
-        currentButtons.forEach((opt) => {
-            const btn = document.createElement('button');
-            btn.innerHTML = `<img src="${opt.img}" alt="${opt.label}">`;
-            btn.onclick = () => {
-                if (opt.value === "multiply") currentMinutes *= 2;
-                else currentMinutes += opt.value;
-                btn.disabled = true;
-                updateTimeDisplay();
-                if (currentMinutes >= LIMIT) finishGame();
-            };
-            container.appendChild(btn);
-        });
-    }
-
-    function updateTimeDisplay() {
-        const h = Math.floor(currentMinutes / 60), m = currentMinutes % 60;
-        document.getElementById('current-time').innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
-    }
-
-    function solveBest() {
-        let bestVal = -1, bestCombo = [];
-        function find(cur, rem, path) {
-            if (cur < LIMIT && cur > bestVal) { bestVal = cur; bestCombo = [...path]; }
-            for (let i = 0; i < rem.length; i++) {
-                let btn = rem[i];
-                find(btn.value === "multiply" ? cur * 2 : cur + btn.value, rem.filter((_, idx) => idx !== i), [...path, btn.label]);
-            }
-        }
-        find(initialMinutes, currentButtons, []);
-        return { val: bestVal, combo: bestCombo };
-    }
-
-    function finishGame(isTimeout = false) {
-        clearInterval(timerInterval);
-        const best = solveBest(), msg = document.getElementById('message'), overlay = document.getElementById('result-overlay');
-        
-        document.getElementById('res-initial').innerText = `${Math.floor(initialMinutes/60).toString().padStart(2,'0')}:${(initialMinutes%60).toString().padStart(2,'0')}`;
-        document.getElementById('res-options').innerText = currentButtons.map(b => b.label).join('　');
-        document.getElementById('res-target').innerText = `${Math.floor(best.val/60).toString().padStart(2,'0')}:${(best.val%60).toString().padStart(2,'0')}`;
-        document.getElementById('res-steps').innerText = best.combo.join('➡️') || '不需控時';
-
-        const bestContainer = document.getElementById('best-solution-container');
-        bestContainer.style.display = "block";
-        void bestContainer.offsetWidth;
-        bestContainer.classList.add('fade-in');
-
-        overlay.style.display = "block";
-        
-        if (isTimeout) {
-            msg.innerText = "💀 時間到 💀"; msg.style.color = "#ff4757";
-            overlay.style.backgroundImage = `url('${RESULT_IMAGES.TIMEOUT}')`;
-        } else if (currentMinutes < LIMIT && currentMinutes >= best.val) {
-            msg.innerText = "✨ 完美控時 ✨"; msg.style.color = "#2ecc71";
-            overlay.style.backgroundImage = `url('${RESULT_IMAGES.PERFECT}')`;
-        } else if (currentMinutes >= LIMIT) {
-            msg.innerText = "💀 超過12:00 💀"; msg.style.color = "#ff4757";
-            overlay.style.backgroundImage = `url('${RESULT_IMAGES.OVER}')`;
-        } else {
-            msg.innerText = "⚠️ 未達最佳解 ⚠️"; msg.style.color = "#f1c40f";
-            overlay.style.backgroundImage = `url('${RESULT_IMAGES.FAILED}')`;
-        }
-        
-        document.querySelectorAll('#button-container button').forEach(b => b.disabled = true);
-        document.getElementById('end-btn').style.display = "none";
-        document.getElementById('next-btn').style.display = "block";
-    }
-
-    document.getElementById('end-btn').onclick = () => finishGame(false);
-
-    document.getElementById('next-btn').onclick = () => {
-        const bestContainer = document.getElementById('best-solution-container');
-        bestContainer.classList.remove('fade-in');
-        bestContainer.classList.add('fade-out');
-        setTimeout(() => {
-            initGame();
-        }, 500);
-    };
+document.getElementById('end-btn').onclick = () => finishGame(false);
+document.getElementById('next-btn').onclick = () => {
+    const bestContainer = document.getElementById('best-solution-container');
+    bestContainer.classList.remove('fade-in');
+    bestContainer.classList.add('fade-out');
+    setTimeout(() => initGame(), 500);
+};
 </script>
 
 </body>
