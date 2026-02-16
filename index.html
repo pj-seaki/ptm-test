@@ -6,265 +6,263 @@
     <title>Artale 困難拉圖斯控時練習器</title>
     <style>
         :root {
-          --card-bg: rgba(22, 27, 34, 0.98);
-          --primary-gold: #f1c40f;
-          --clock-blue: #d7ede9;
-          --accent-blue: #58a6ff;
-          --text-main: #e6edf3;
-          --text-dim: #8b949e;
-          --border-color: #30363d;
+            --card-bg: rgba(22, 27, 34, 0.98);
+            --primary-gold: #f1c40f;
+            --clock-blue: #d7ede9;
+            --accent-blue: #58a6ff;
+            --text-main: #e6edf3;
+            --text-dim: #8b949e;
+            --border-color: #30363d;
         }
 
         body {
-          background: radial-gradient(circle, #161b22 0%, #0d1117 100%);
-          color: var(--text-main);
-          font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: 100vh;
-          margin: 0;
-          padding: 15px;
-          box-sizing: border-box;
+            background: radial-gradient(circle, #161b22 0%, #0d1117 100%);
+            color: var(--text-main);
+            font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
         }
 
         .game-wrapper {
-          background: var(--card-bg);
-          padding: 20px 30px; 
-          border-radius: 20px;
-          border: 1px solid var(--border-color);
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-          text-align: center;
-          width: 100%;
-          max-width: 400px;
-          min-height: 800px;
-          box-sizing: border-box;
-          position: relative;
+            background: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            min-height: 800px;
+            box-sizing: border-box;
+            position: relative;
         }
 
-        /* 訊息區域 */
         #result-area {
-          margin-bottom: 10px;
-          height: 60px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+            margin-bottom: 10px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #message {
-          margin: 0;
-          font-size: 1.3rem;
-          font-weight: bold;
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: bold;
         }
 
-        /* --- 倒數計時區 --- */
         .timer-area {
-          width: 100%;
-          max-width: 180px;
-          aspect-ratio: 200 / 60;
-          background: url('https://images.plurk.com/3aMmUYdcZdgMBClnxf4Qir.png') center / 100% 100% no-repeat;
-          margin: 0 auto 25px auto;
-          position: relative;
+            width: 100%;
+            max-width: 180px;
+            aspect-ratio: 200 / 60;
+            background: url('https://images.plurk.com/3aMmUYdcZdgMBClnxf4Qir.png') center / 100% 100% no-repeat;
+            margin: 0 auto 25px auto;
+            position: relative;
         }
 
         #static-zero, 
         #countdown-timer {
-          font-family: "Courier New", monospace;
-          font-size: 2.3rem;
-          font-weight: bold;
-          color: #fbf9c2;
-          letter-spacing: -2px;
-          line-height: 1;
-          position: absolute;
-          top: 53%;
-          transform: translateY(-50%);
-          width: 35%;
-          text-align: center;
-
-          /* --- 發光效果 --- */
-          text-shadow: 
-            0 0 5px rgba(251, 249, 194, 0.8), 
-            0 0 10px rgba(251, 249, 194, 0.5),
-            0 0 20px rgba(241, 196, 15, 0.3);
-          filter: brightness(1); 
+            font-family: "Courier New", monospace;
+            font-size: 2.3rem;
+            font-weight: bold;
+            color: #fbf9c2;
+            letter-spacing: -2px;
+            line-height: 1;
+            position: absolute;
+            top: 53%;
+            transform: translateY(-50%);
+            width: 35%;
+            text-align: center;
+            text-shadow: 
+                0 0 5px rgba(251, 249, 194, 0.8),
+                0 0 10px rgba(251, 249, 194, 0.5),
+                0 0 20px rgba(241, 196, 15, 0.3);
+            filter: brightness(1);
         }
 
         #static-zero { left: 28%; }
         #countdown-timer { left: 60%; }
 
-        /* 按鈕區域 */
         .button-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 12px;
-          margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
         #button-container button {
-          padding: 8px;
-          aspect-ratio: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #21262d;
-          border: 1px solid var(--border-color);
-          border-radius: 10px;
-          cursor: pointer;
-          transition: .2s;
+            padding: 8px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #21262d;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: .2s;
         }
 
         #button-container button:hover:not(:disabled) {
-          background: #30363d;
-          transform: translateY(-3px);
-          box-shadow: 0 5px 15px rgba(0, 242, 255, 0.1);
+            background: #30363d;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 242, 255, 0.1);
         }
 
         #button-container button img {
-          width: 90%;
-          image-rendering: pixelated;
+            width: 90%;
+            image-rendering: pixelated;
         }
 
         #button-container button:disabled {
-          background: #0d1117;
-          filter: grayscale(1) brightness(0.4);
+            background: #0d1117;
+            filter: grayscale(1) brightness(0.4);
         }
 
-        /* 時鐘顯示區 */
         .clock-display-area {
-          width: 100%;
-          aspect-ratio: 16 / 9;
-          background: url('https://images.plurk.com/1bTdt9DiaQ0N4WQJPNH9XA.png') center / 100% 100% no-repeat;
-          position: relative;
-          margin-bottom: 20px;
-          filter: brightness(0.9);
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: url('https://images.plurk.com/1bTdt9DiaQ0N4WQJPNH9XA.png') center / 100% 100% no-repeat;
+            position: relative;
+            margin-bottom: 20px;
+            filter: brightness(0.9);
         }
 
         .time-container {
-          position: absolute;
-          top: 48.5%;
-          left: 49.5%;
-          transform: translate(-50%, -50%);
-          width: 100%;
+            position: absolute;
+            top: 48.5%;
+            left: 49.5%;
+            transform: translate(-50%, -50%);
+            width: 100%;
         }
 
         #current-time {
-          font-family: "Courier New", monospace;
-          font-size: 0.85rem;
-          font-weight: bold;
-          color: var(--clock-blue);
-          letter-spacing: -1px;
-          line-height: 1;
-
-          /* --- 藍色發光特效 --- */
-          text-shadow: 
-            0 0 5px rgba(215, 237, 233, 0.9),
-            0 0 10px rgba(88, 166, 255, 0.6),
-            0 0 15px rgba(88, 166, 255, 0.3);
-          filter: brightness(1);
+            font-family: "Courier New", monospace;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--clock-blue);
+            letter-spacing: -1px;
+            line-height: 1;
+            text-shadow: 
+                0 0 5px rgba(215, 237, 233, 0.9),
+                0 0 10px rgba(88, 166, 255, 0.6),
+                0 0 15px rgba(88, 166, 255, 0.3);
+            filter: brightness(1);
         }
 
         #result-overlay {
-          display: none;
-          position: absolute;
-          inset: 0;
-          z-index: 10;
-          background: center / contain no-repeat;
-          pointer-events: none;
-          animation: resultAppear 1.2s ease-out forwards;
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: center / contain no-repeat;
+            pointer-events: none;
+            animation: resultAppear 1.2s ease-out forwards;
         }
 
         @keyframes resultAppear { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 控制按鈕 */
         .primary-btn, .secondary-btn {
-          padding: 15px;
-          font-size: 1.1rem;
-          border-radius: 10px;
-          font-weight: bold;
-          cursor: pointer;
-          transition: .15s;
-          display: block;
-          width: 100%;
-          box-sizing: border-box;
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .15s;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
         }
 
         .primary-btn {
-          background: #238636 !important;
-          color: #fff !important;
-          margin-top: 10px;
-          box-shadow: 0 4px 0 #1a6328;
-          border: none !important;
+            background: #238636 !important;
+            color: #fff !important;
+            margin-top: 10px;
+            box-shadow: 0 4px 0 #1a6328;
         }
 
         .secondary-btn {
-          background: transparent !important;
-          border: 1px solid var(--accent-blue) !important;
-          color: var(--accent-blue) !important;
+            background: transparent !important;
+            border: 1px solid var(--accent-blue) !important;
+            color: var(--accent-blue) !important;
         }
 
-        /* 最佳解樣式 */
         #best-solution-container {
-          display: none;
-          animation: fadeInOnly 0.5s ease-in-out forwards;
+            display: none;
+            animation: fadeInOnly 0.5s ease-in-out forwards;
         }
 
         @keyframes fadeInOnly { from { opacity: 0; } to { opacity: 1; } }
 
         #best-solution-box {
-          color: var(--clock-blue);
-          background: rgba(88, 166, 255, 0.03); 
-          padding: 20px; 
-          border-radius: 4px;
-          text-align: left;
-          margin-top: 25px;
-          border: 1px solid rgba(88, 166, 255, 0.2);
+            color: var(--clock-blue);
+            background: rgba(88, 166, 255, 0.03);
+            padding: 20px;
+            border-radius: 4px;
+            text-align: left;
+            margin-top: 25px;
+            border: 1px solid rgba(88, 166, 255, 0.2);
         }
 
         .result-row {
-          display: flex;
-          margin-bottom: 12px; 
-          border-bottom: 1px solid rgba(88, 166, 255, 0.08); 
-          padding-bottom: 10px;
-          align-items: flex-start;
+            display: flex;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(88, 166, 255, 0.08);
+            padding-bottom: 10px;
+            align-items: flex-start;
         }
 
         .result-row:last-child {
-          border-bottom: none;
-          margin-bottom: 0;
-          padding-bottom: 0;
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
         .result-row strong {
-          min-width: 90px; 
-          font-size: 0.9rem; 
-          color: var(--clock-blue);
-          opacity: 0.75; 
+            min-width: 90px;
+            font-size: 0.9rem;
+            color: var(--clock-blue);
+            opacity: 0.75;
         }
 
         #res-initial, #res-target, #res-options, #res-steps {
-          font-family: "Courier New", monospace;
-          font-size: 1.05rem;
-          font-weight: bold;
+            font-family: "Courier New", monospace;
+            font-size: 1.05rem;
+            font-weight: bold;
         }
 
         #res-options, #res-steps { color: var(--primary-gold); }
 
         @media (max-width: 400px) {
-          .game-wrapper { padding: 30px 20px; }
-          #static-zero, #countdown-timer { font-size: 1.9rem; }
+            .game-wrapper { padding: 30px 20px; }
+            #static-zero, #countdown-timer { font-size: 2.3rem; }
         }
     </style>
 </head>
 <body>
 
 <div class="game-wrapper">
-    <div id="result-area"><p id="message">請點選按鈕或結束控時</p></div>
-    <div class="timer-area"><span id="static-zero">00</span><span id="countdown-timer">30</span></div>
-    
+    <div id="result-area">
+        <p id="message">請點選按鈕或結束控時</p>
+    </div>
+
+    <div class="timer-area">
+        <span id="static-zero">00</span>
+        <span id="countdown-timer">30</span>
+    </div>
+
     <div class="button-grid" id="button-container"></div>
-    
+
     <div class="clock-display-area">
-        <div class="time-container"><span id="current-time">00:00</span></div>
+        <div class="time-container">
+            <span id="current-time">00:00</span>
+        </div>
         <div id="result-overlay"></div>
     </div>
 
@@ -285,116 +283,117 @@
 
 <script>
     const optionsPool = [
-      { label: "10分", value: 10, img: "https://images.plurk.com/7pt8wSx3Xy07rygfZInZCr.png" }, 
-      { label: "30分", value: 30, img: "https://images.plurk.com/59uCWHf3M1RoPc1UXJgfnS.png" },
-      { label: "50分", value: 50, img: "https://images.plurk.com/1FaL0XeX7XAm0GXqpZnBUp.png" }, 
-      { label: "2時", value: 120, img: "https://images.plurk.com/1PQ11IRH876A1rqkCwqOcX.png" }, 
-      { label: "4時", value: 240, img: "https://images.plurk.com/3U1ODgTPfoziea90SFp3g7.png" },
-      { label: "9時", value: 540, img: "https://images.plurk.com/2KWgNVfYEGu2AJWt2cej3v.png" }, 
-      { label: "x2", value: "multiply", img: "https://images.plurk.com/3U2dQZsFpUMn00iElEUJb0.png" }
+        { label: "10分", value: 10, img: "https://images.plurk.com/7pt8wSx3Xy07rygfZInZCr.png" },
+        { label: "30分", value: 30, img: "https://images.plurk.com/59uCWHf3M1RoPc1UXJgfnS.png" },
+        { label: "50分", value: 50, img: "https://images.plurk.com/1FaL0XeX7XAm0GXqpZnBUp.png" },
+        { label: "2時", value: 120, img: "https://images.plurk.com/1PQ11IRH876A1rqkCwqOcX.png" },
+        { label: "4時", value: 240, img: "https://images.plurk.com/3U1ODgTPfoziea90SFp3g7.png" },
+        { label: "9時", value: 540, img: "https://images.plurk.com/2KWgNVfYEGu2AJWt2cej3v.png" },
+        { label: "x2", value: "multiply", img: "https://images.plurk.com/3U2dQZsFpUMn00iElEUJb0.png" }
     ];
 
     const RESULT_IMAGES = {
-      PERFECT: "https://images.plurk.com/5zFNiX40JIIMuE0PtRb480.gif",
-      FAILED: "https://images.plurk.com/53KHwJqN2UmP7FetY8LwjV.gif",
-      OVER: "https://images.plurk.com/5Kg5s6ebU2vHDTBJ2ReXFn.gif",
-      TIMEOUT: "https://images.plurk.com/5Kg5s6ebU2vHDTBJ2ReXFn.gif" 
+        PERFECT: "https://images.plurk.com/5zFNiX40JIIMuE0PtRb480.gif",
+        FAILED: "https://images.plurk.com/53KHwJqN2UmP7FetY8LwjV.gif",
+        OVER: "https://images.plurk.com/5Kg5s6ebU2vHDTBJ2ReXFn.gif ",
+        TIMEOUT: "https://images.plurk.com/5Kg5s6ebU2vHDTBJ2ReXFn.gif"
     };
 
     let currentMinutes = 0, initialMinutes = 0, currentButtons = [], timerInterval, timeLeft = 30;
-    const TARGET = 710, LIMIT = 720;
+    const LIMIT = 720;
 
     function initGame() {
-      const randomStep = Math.floor(Math.random() * 67); 
-      initialMinutes = (randomStep * 10) + 30;
-      currentMinutes = initialMinutes;
-      currentButtons = [];
-      for (let i = 0; i < 4; i++) {
-        currentButtons.push({...optionsPool[Math.floor(Math.random() * optionsPool.length)]});
-      }
-      document.getElementById('result-overlay').style.display = "none";
-      startTimer();
-      updateTimeDisplay();
-      renderButtons();
-      document.getElementById('message').innerText = "請點選按鈕或結束控時";
-      document.getElementById('message').style.color = "#c9d1d9";
-      document.getElementById('best-solution-container').style.display = "none";
-      document.getElementById('next-btn').style.display = "none";
-      document.getElementById('end-btn').style.display = "block";
+        const randomStep = Math.floor(Math.random() * 67);
+        initialMinutes = (randomStep * 10) + 30;
+        currentMinutes = initialMinutes;
+        currentButtons = [];
+        for (let i = 0; i < 4; i++) {
+            currentButtons.push({ ...optionsPool[Math.floor(Math.random() * optionsPool.length)] });
+        }
+        const overlay = document.getElementById('result-overlay');
+        if (overlay) { overlay.style.display = "none"; overlay.style.backgroundImage = "none"; }
+        startTimer();
+        updateTimeDisplay();
+        renderButtons();
+        document.getElementById('message').innerText = "請點選按鈕或結束控時";
+        document.getElementById('message').style.color = "#c9d1d9";
+        document.getElementById('best-solution-container').style.display = "none";
+        document.getElementById('next-btn').style.display = "none";
+        document.getElementById('end-btn').style.display = "block";
     }
 
     function startTimer() {
-      clearInterval(timerInterval);
-      timeLeft = 30;
-      document.getElementById('countdown-timer').innerText = "30";
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        document.getElementById('countdown-timer').innerText = timeLeft.toString().padStart(2, '0');
-        if (timeLeft <= 0) { clearInterval(timerInterval); finishGame(true); }
-      }, 1000);
+        clearInterval(timerInterval);
+        timeLeft = 30;
+        const timerDisplay = document.getElementById('countdown-timer');
+        timerDisplay.innerText = "30";
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            timerDisplay.innerText = timeLeft.toString().padStart(2, '0');
+            if (timeLeft <= 0) { clearInterval(timerInterval); finishGame(true); }
+        }, 1000);
     }
 
     function renderButtons() {
-      const container = document.getElementById('button-container');
-      container.innerHTML = '';
-      currentButtons.forEach((opt) => {
-        const btn = document.createElement('button');
-        btn.innerHTML = `<img src="${opt.img}">`;
-        btn.onclick = () => {
-          if (opt.value === "multiply") currentMinutes *= 2; else currentMinutes += opt.value;
-          btn.disabled = true;
-          updateTimeDisplay();
-          if (currentMinutes >= LIMIT || currentMinutes === TARGET) finishGame();
-        };
-        container.appendChild(btn);
-      });
+        const container = document.getElementById('button-container');
+        container.innerHTML = '';
+        currentButtons.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.innerHTML = `<img src="${opt.img}" alt="${opt.label}">`;
+            btn.onclick = () => {
+                if (opt.value === "multiply") currentMinutes *= 2;
+                else currentMinutes += opt.value;
+                btn.disabled = true;
+                updateTimeDisplay();
+                if (currentMinutes >= LIMIT) finishGame();
+            };
+            container.appendChild(btn);
+        });
     }
 
     function updateTimeDisplay() {
-      const h = Math.floor(currentMinutes / 60), m = currentMinutes % 60;
-      document.getElementById('current-time').innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+        const h = Math.floor(currentMinutes / 60), m = currentMinutes % 60;
+        document.getElementById('current-time').innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
     }
 
     function solveBest() {
-      let bestVal = -1, bestCombo = [];
-      function find(cur, rem, path) {
-        if (cur < LIMIT && cur > bestVal) { bestVal = cur; bestCombo = [...path]; }
-        rem.forEach((btn, i) => {
-          find(btn.value === "multiply" ? cur * 2 : cur + btn.value, rem.filter((_, idx) => idx !== i), [...path, btn.label]);
-        });
-      }
-      find(initialMinutes, currentButtons, []);
-      return { val: bestVal, combo: bestCombo };
+        let bestVal = -1, bestCombo = [];
+        function find(cur, rem, path) {
+            if (cur < LIMIT && cur > bestVal) { bestVal = cur; bestCombo = [...path]; }
+            for (let i = 0; i < rem.length; i++) {
+                let btn = rem[i];
+                find(btn.value === "multiply" ? cur * 2 : cur + btn.value, rem.filter((_, idx) => idx !== i), [...path, btn.label]);
+            }
+        }
+        find(initialMinutes, currentButtons, []);
+        return { val: bestVal, combo: bestCombo };
     }
 
     function finishGame(isTimeout = false) {
-      clearInterval(timerInterval);
-      const best = solveBest();
-      const msg = document.getElementById('message');
-      const overlay = document.getElementById('result-overlay');
-      document.getElementById('best-solution-container').style.display = "block";
-      document.getElementById('res-initial').innerText = `${Math.floor(initialMinutes/60).toString().padStart(2,'0')}:${(initialMinutes%60).toString().padStart(2,'0')}`;
-      document.getElementById('res-options').innerText = currentButtons.map(b => b.label).join(' ');
-      document.getElementById('res-target').innerText = `${Math.floor(best.val/60).toString().padStart(2,'0')}:${(best.val%60).toString().padStart(2,'0')}`;
-      document.getElementById('res-steps').innerText = best.combo.join('➡️') || '無';
-
-      overlay.style.display = "block";
-      if (isTimeout) {
-        msg.innerText = "💀 時間到！全圖殺 💀"; msg.style.color = "#ff4757";
-        overlay.style.backgroundImage = `url('${RESULT_IMAGES.TIMEOUT}')`;
-      } else if (currentMinutes < LIMIT && currentMinutes >= best.val) {
-        msg.innerText = "✨ 完美控時！ ✨"; msg.style.color = "#2ecc71";
-        overlay.style.backgroundImage = `url('${RESULT_IMAGES.PERFECT}')`;
-      } else if (currentMinutes >= LIMIT) {
-        msg.innerText = "💀 超過 12:00！全圖殺 💀"; msg.style.color = "#ff4757";
-        overlay.style.backgroundImage = `url('${RESULT_IMAGES.OVER}')`;
-      } else {
-        msg.innerText = "⚠️ 未達最佳解 ⚠️"; msg.style.color = "#f1c40f";
-        overlay.style.backgroundImage = `url('${RESULT_IMAGES.FAILED}')`;
-      }
-      document.querySelectorAll('#button-container button').forEach(b => b.disabled = true);
-      document.getElementById('end-btn').style.display = "none";
-      document.getElementById('next-btn').style.display = "block";
+        clearInterval(timerInterval);
+        const best = solveBest(), msg = document.getElementById('message'), overlay = document.getElementById('result-overlay');
+        document.getElementById('best-solution-container').style.display = "block";
+        document.getElementById('res-initial').innerText = `${Math.floor(initialMinutes/60).toString().padStart(2,'0')}:${(initialMinutes%60).toString().padStart(2,'0')}`;
+        document.getElementById('res-options').innerText = currentButtons.map(b => b.label).join('　');
+        document.getElementById('res-target').innerText = `${Math.floor(best.val/60).toString().padStart(2,'0')}:${(best.val%60).toString().padStart(2,'0')}`;
+        document.getElementById('res-steps').innerText = best.combo.join('➡️') || '不需控時';
+        overlay.style.display = "block";
+        if (isTimeout) {
+            msg.innerText = "💀 時間到 💀"; msg.style.color = "#ff4757";
+            overlay.style.backgroundImage = `url('${RESULT_IMAGES.TIMEOUT}')`;
+        } else if (currentMinutes < LIMIT && currentMinutes >= best.val) {
+            msg.innerText = "✨ 完美控時 ✨"; msg.style.color = "#2ecc71";
+            overlay.style.backgroundImage = `url('${RESULT_IMAGES.PERFECT}')`;
+        } else if (currentMinutes >= LIMIT) {
+            msg.innerText = "💀 超過12:00 💀"; msg.style.color = "#ff4757";
+            overlay.style.backgroundImage = `url('${RESULT_IMAGES.OVER}')`;
+        } else {
+            msg.innerText = "⚠️ 未達最佳解，再接再厲 ⚠️"; msg.style.color = "#f1c40f";
+            overlay.style.backgroundImage = `url('${RESULT_IMAGES.FAILED}')`;
+        }
+        document.querySelectorAll('#button-container button').forEach(b => b.disabled = true);
+        document.getElementById('end-btn').style.display = "none";
+        document.getElementById('next-btn').style.display = "block";
     }
 
     document.getElementById('end-btn').onclick = () => finishGame(false);
